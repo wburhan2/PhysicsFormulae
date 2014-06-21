@@ -2,7 +2,12 @@
 <resources>
 
     <string name="app_name">PhysicsFormulae</string>
-    <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
+    <string-array name="topic_list">
+        <item>Kinematics</item>
+        <item>Forces</item>
+        <item>Dynamics</item>
+        <item>Work, Energy, Power</item>
+    </string-array>
 
 </resources>
