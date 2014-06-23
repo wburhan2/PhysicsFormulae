@@ -9,5 +9,12 @@
         <item>Dynamics</item>
         <item>Work, Energy, Power</item>
     </string-array>
+    <string-array name="Forces">
+        <item>Hooke\'s law</item>
+        <item>Weight</item>
+        <item>Equilibrium</item>
+        <item>Momentum</item>
+        <item>TEST</item>
+    </string-array>
 
 </resources>

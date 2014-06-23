@@ -1,27 +1,28 @@
 package com.physicsformulae.app;
 
-import android.content.Context;
 import android.location.LocationManager;
 import android.os.Bundle;
-import android.view.LayoutInflater;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.BaseAdapter;
+import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import com.google.inject.Inject;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import roboguice.activity.RoboActivity;
+import roboguice.activity.RoboFragmentActivity;
 import roboguice.inject.InjectResource;
 import roboguice.inject.InjectView;
 
-public class MainActivity extends RoboActivity {
+public class MainActivity extends RoboFragmentActivity {
+
+    private final int KINEMATICS = 0;
+    private final int FORCES = 1;
+    private final int DYNAMICS = 2;
+    private final int WORK = 3;
+
 
     @InjectView(R.id.list_view)
     ListView mListView;
@@ -38,9 +39,10 @@ public class MainActivity extends RoboActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        final MyAdapter adapter = new MyAdapter();
+        final MyAdapter adapter = new MyAdapter(mListOfTopics);
         mListView.setAdapter(adapter);
-
+        MyClickListener myClickListener = new MyClickListener();
+        mListView.setOnItemClickListener(myClickListener);
     }
 
 
@@ -63,56 +65,25 @@ public class MainActivity extends RoboActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    public class MyAdapter extends BaseAdapter {
-
-        TextView mTopicItem;
-
-        // Create a list to contain the list of strings.
-        final List<String> mTopicList;
-
-        // Constructor
-        public MyAdapter() {
-            mTopicList = new ArrayList<String>();
-            for(String item : mListOfTopics)
-                mTopicList.add(item);
-        }
-
-        // To clear the list
-        public void clear(){
-            mTopicList.clear();
-        }
+    public class MyClickListener implements AdapterView.OnItemClickListener {
 
         @Override
-        public int getCount() {
-            return mTopicList.size();
-        }
-
-        @Override
-        public Object getItem(int i) {
-            if (i >= mTopicList.size() || i < 0)
-                return null;
-            return mTopicList.get(i);
-        }
-
-        @Override
-        public long getItemId(int i) {
-            return i;
-        }
-
-        @Override
-        public View getView(int i, View contextView, ViewGroup viewGroup) {
-            View view = contextView;
-
-            //In case the view is null, inflate the layout.
-            if (view == null) {
-                LayoutInflater inflater = (LayoutInflater)viewGroup.getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-                view = inflater.inflate(R.layout.list_item, viewGroup, false);
+        public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+            switch (i) {
+                case KINEMATICS:
+                case FORCES:
+                case DYNAMICS:
+                case WORK:
+                    FragmentManager fm = getSupportFragmentManager();
+                    FragmentTransaction ft = fm.beginTransaction();
+                    SubMenuFragment fragment = SubMenuFragment.newInstance("Forces");
+                    ft.replace(R.id.main_menu, fragment);
+                    ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
+                    ft.addToBackStack(null);
+                    ft.commit();
+                    //fragment.show(fm, "SubMenuFragment");
+                    break;
             }
-
-            mTopicItem = (TextView)view.findViewById(R.id.topic_item);
-            mTopicItem.setText(mTopicList.get(i));
-            return view;
         }
     }
-
 }
