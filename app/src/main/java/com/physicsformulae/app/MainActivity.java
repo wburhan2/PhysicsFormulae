@@ -25,7 +25,7 @@ public class MainActivity extends RoboFragmentActivity {
         FragmentManager fm = getSupportFragmentManager();
         FragmentTransaction ft = fm.beginTransaction();
         MainMenuFragment fragment = new MainMenuFragment();
-        ft.add(R.id.main_container, fragment);
+        ft.replace(R.id.main_container, fragment);
         ft.commit();
     }
 

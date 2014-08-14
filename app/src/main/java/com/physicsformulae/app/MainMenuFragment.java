@@ -23,6 +23,8 @@ public class MainMenuFragment extends RoboFragment {
     private final int DYNAMICS = 2;
     private final int WORK = 3;
 
+    int mSelectedTopic = 0;
+
     @InjectView(R.id.main_list)
     ListView mListView;
 
@@ -30,8 +32,19 @@ public class MainMenuFragment extends RoboFragment {
     String[] mListOfTopics;
 
     @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putInt("selected", mSelectedTopic);
+    }
+
+    @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        if (savedInstanceState != null) {
+            // Restore last state for checked position.
+            mSelectedTopic = savedInstanceState.getInt("selected", 0);
+        }
 
         final MyAdapter adapter = new MyAdapter(mListOfTopics);
         mListView.setAdapter(adapter);
