@@ -16,6 +16,10 @@ import roboguice.inject.InjectView;
  */
 public class TopicFragment extends RoboFragment {
 
+
+    public static String _title;
+    public final String VECTOR = "Vectors";
+    public final String KINEMATIC = "Kinematics";
     @InjectView(R.id.image_topic)
     ZoomableImageView imageView;
 
@@ -29,6 +33,7 @@ public class TopicFragment extends RoboFragment {
 
         Bundle args = new Bundle();
         args.putString("chapter", topic);
+        _title = topic;
         fragment.setArguments(args);
         return fragment;
     }
@@ -36,7 +41,18 @@ public class TopicFragment extends RoboFragment {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        imageView.setImageBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.rabbids));
+        //String topic = savedInstanceState == null ? null : savedInstanceState.getString(_title);
+        //if (topic == null)  {
+        if (getArguments().getString("chapter").equals(VECTOR)) {
+            getActivity().setTitle(VECTOR);
+            imageView.setImageBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.vectors));
+        }
+        //}
+        else if (getArguments().getString("chapter").equals(KINEMATIC)){
+            imageView.setImageBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.kinematics));
+        }
+
+
     }
 
     @Override
