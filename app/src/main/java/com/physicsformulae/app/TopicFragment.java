@@ -2,11 +2,9 @@ package com.physicsformulae.app;
 
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
-import android.text.AndroidCharacter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ListView;
 
 import roboguice.fragment.RoboFragment;
 import roboguice.inject.InjectView;
@@ -20,12 +18,16 @@ public class TopicFragment extends RoboFragment {
     public static String _title;
     public final String VECTOR = "Vectors";
     public final String KINEMATIC = "Kinematics";
-    @InjectView(R.id.image_topic)
-    ZoomableImageView imageView;
+    @InjectView(R.id.image_topic) TouchImageView imageView;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         return inflater.inflate(R.layout.topic_fragment, container, false);
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        outState.putString("title", _title);
     }
 
     public static TopicFragment newInstance(String topic){
@@ -41,18 +43,18 @@ public class TopicFragment extends RoboFragment {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        //String topic = savedInstanceState == null ? null : savedInstanceState.getString(_title);
-        //if (topic == null)  {
-        if (getArguments().getString("chapter").equals(VECTOR)) {
+        String topic = getArguments().getString("chapter");
+
+        getActivity().getActionBar().setDisplayHomeAsUpEnabled(true);
+        getActivity().getActionBar().setHomeButtonEnabled(true);
+
+        if (topic.equals(VECTOR)) {
             getActivity().setTitle(VECTOR);
             imageView.setImageBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.vectors));
-        }
-        //}
-        else if (getArguments().getString("chapter").equals(KINEMATIC)){
+        } else if (topic.equals(KINEMATIC)) {
+            getActivity().setTitle(KINEMATIC);
             imageView.setImageBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.kinematics));
         }
-
-
     }
 
     @Override

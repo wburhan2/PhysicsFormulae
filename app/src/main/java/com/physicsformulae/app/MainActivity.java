@@ -13,10 +13,6 @@ import roboguice.activity.RoboFragmentActivity;
 
 public class MainActivity extends RoboFragmentActivity {
 
-    // system service
-    @Inject
-    LocationManager loc;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,6 +22,7 @@ public class MainActivity extends RoboFragmentActivity {
         FragmentTransaction ft = fm.beginTransaction();
         MainMenuFragment fragment = new MainMenuFragment();
         ft.replace(R.id.main_container, fragment);
+        ft.addToBackStack(null);
         ft.commit();
     }
 
@@ -39,14 +36,17 @@ public class MainActivity extends RoboFragmentActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-        if (id == R.id.action_settings) {
-            return true;
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                FragmentManager fm= getSupportFragmentManager();
+                if(fm.getBackStackEntryCount()>0){
+                    fm.popBackStack();
+                }
+                return true;
+            case R.id.action_settings:
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
         }
-        return super.onOptionsItemSelected(item);
     }
-
 }

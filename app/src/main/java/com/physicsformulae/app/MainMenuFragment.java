@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -21,17 +22,13 @@ public class MainMenuFragment extends RoboFragment {
     private final int VECTORS = 0;
     private final int KINEMATICS = 1;
 
-    int mSelectedTopic = 0;
+    int mSelectedTopic = -1;
 
-    @InjectView(R.id.main_list)
-    ListView mListView;
-
-    @InjectResource(R.array.topic_list)
-    String[] mListOfTopics;
+    @InjectView(R.id.main_list) ListView mListView;
+    @InjectResource(R.array.topic_list) String[] mListOfTopics;
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
         outState.putInt("selected", mSelectedTopic);
     }
 
@@ -41,8 +38,12 @@ public class MainMenuFragment extends RoboFragment {
 
         if (savedInstanceState != null) {
             // Restore last state for checked position.
-            mSelectedTopic = savedInstanceState.getInt("selected", 0);
+            mSelectedTopic = savedInstanceState.getInt("selected");
         }
+
+        getActivity().getActionBar().setDisplayHomeAsUpEnabled(false);
+        getActivity().getActionBar().setHomeButtonEnabled(false);
+        getActivity().setTitle(getResources().getString(R.string.app_name));
 
         final MyAdapter adapter = new MyAdapter(mListOfTopics);
         mListView.setAdapter(adapter);
@@ -63,16 +64,18 @@ public class MainMenuFragment extends RoboFragment {
             FragmentManager fm = getFragmentManager();
             FragmentTransaction ft = fm.beginTransaction();
             ft.setCustomAnimations(R.anim.slide_in_right, R.anim.slide_out_left, android.R.anim.slide_in_left, android.R.anim.slide_out_right);
-
+            TopicFragment fragment;
             switch (i) {
                 case VECTORS:
-                    TopicFragment fragment = TopicFragment.newInstance(getResources().getString(R.string.vectors));
+                    mSelectedTopic = VECTORS;
+                    fragment = TopicFragment.newInstance(getResources().getString(R.string.vectors));
                     ft.replace(R.id.main_container, fragment);
                     ft.addToBackStack(null);
                     ft.commit();
                     break;
 
                 case KINEMATICS:
+                    mSelectedTopic = KINEMATICS;
                     fragment = TopicFragment.newInstance(getResources().getString(R.string.kinematics));
                     ft.replace(R.id.main_container, fragment);
                     ft.addToBackStack(null);
