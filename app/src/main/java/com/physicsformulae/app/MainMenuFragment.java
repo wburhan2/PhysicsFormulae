@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -19,8 +18,11 @@ import roboguice.inject.InjectView;
  */
 public class MainMenuFragment extends RoboFragment {
 
-    private final int VECTORS = 0;
-    private final int KINEMATICS = 1;
+    private final int KINEMATICS = 0;
+    private final int MOMENTUM = 1;
+    private final int NEWTONS_LAW = 2;
+    private final int VECTORS = 3;
+    private final int WORK_ENERGY = 4;
 
     int mSelectedTopic = -1;
 
@@ -66,6 +68,30 @@ public class MainMenuFragment extends RoboFragment {
             ft.setCustomAnimations(R.anim.slide_in_right, R.anim.slide_out_left, android.R.anim.slide_in_left, android.R.anim.slide_out_right);
             TopicFragment fragment;
             switch (i) {
+                case KINEMATICS:
+                    mSelectedTopic = KINEMATICS;
+                    fragment = TopicFragment.newInstance(getResources().getString(R.string.kinematics));
+                    ft.replace(R.id.main_container, fragment);
+                    ft.addToBackStack(null);
+                    ft.commit();
+                    break;
+
+                case MOMENTUM:
+                    mSelectedTopic = MOMENTUM;
+                    fragment = TopicFragment.newInstance(getResources().getString(R.string.momentum));
+                    ft.replace(R.id.main_container, fragment);
+                    ft.addToBackStack(null);
+                    ft.commit();
+                    break;
+
+                case NEWTONS_LAW:
+                    mSelectedTopic = NEWTONS_LAW;
+                    fragment = TopicFragment.newInstance(getResources().getString(R.string.newtons_law));
+                    ft.replace(R.id.main_container, fragment);
+                    ft.addToBackStack(null);
+                    ft.commit();
+                    break;
+
                 case VECTORS:
                     mSelectedTopic = VECTORS;
                     fragment = TopicFragment.newInstance(getResources().getString(R.string.vectors));
@@ -74,9 +100,9 @@ public class MainMenuFragment extends RoboFragment {
                     ft.commit();
                     break;
 
-                case KINEMATICS:
-                    mSelectedTopic = KINEMATICS;
-                    fragment = TopicFragment.newInstance(getResources().getString(R.string.kinematics));
+                case WORK_ENERGY:
+                    mSelectedTopic = WORK_ENERGY;
+                    fragment = TopicFragment.newInstance(getResources().getString(R.string.work_energy));
                     ft.replace(R.id.main_container, fragment);
                     ft.addToBackStack(null);
                     ft.commit();

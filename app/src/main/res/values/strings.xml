@@ -5,17 +5,14 @@
     <string name="action_settings">Settings</string>
     <string name="vectors">Vectors</string>
     <string name="kinematics">Kinematics</string>
+    <string name="momentum">Momentum</string>
+    <string name="newtons_law">Newton\'s Law</string>
+    <string name="work_energy">Work and Energy</string>
     <string-array name="topic_list">
-        <item>Vectors</item>
         <item>Kinematics</item>
-    </string-array>
-    <string-array name="Forces">
-        <item>Dynamics</item>
-        <item>Work, Energy, Power</item>
-        <item>Hooke\'s law</item>
-        <item>Weight</item>
-        <item>Equilibrium</item>
         <item>Momentum</item>
+        <item>Newton\'s Law</item>
+        <item>Vectors</item>
+        <item>Work and Energy</item>
     </string-array>
-
 </resources>
