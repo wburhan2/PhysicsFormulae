@@ -1,6 +1,6 @@
 # Add project specific ProGuard rules here.
 # By default, the flags in this file are appended to flags specified
-# in D:/Program Files/Android/Android Studio/sdk/tools/proguard/proguard-android.txt
+# in D:/Program Files (x86)/Android/android-studio/sdk/tools/proguard/proguard-android.txt
 # You can edit the include path and order by changing the ProGuard
 # include property in project.properties.
 #
@@ -15,18 +15,15 @@
 #-keepclassmembers class fqcn.of.javascript.interface.for.webview {
 #   public *;
 #}
-
 -target 1.6
--dontobfuscate
--dontoptimize
 -dontusemixedcaseclassnames
 -dontskipnonpubliclibraryclasses
 -dontpreverify
 -verbose
--dump ../bin/class_files.txt
--printseeds ../bin/seeds.txt
--printusage ../bin/unused.txt
--printmapping ../bin/mapping.txt
+-keepattributes *Annotation*
+-printseeds seeds.txt
+-printusage unused.txt
+-printmapping mapping.txt
 
 # The -optimizations option disables some arithmetic simplifications that Dalvik 1.0 and 1.5 can't handle.
 -optimizations !code/simplification/arithmetic
@@ -50,4 +47,9 @@
     public <init>(android.content.Context, android.util.AttributeSet, int);
     public void set*(...);
 }
--keep public class roboguice.**
+-keep class roboguice.**
+
+# if not using Google Maps library, safe to ignore these
+-dontwarn roboguice.activity.RoboMapActivity
+# safe to ignore testing classes, when proguard not being run against an instrumentation testing app
+-dontwarn roboguice.test.**
