@@ -6,14 +6,36 @@ import android.support.v4.app.FragmentManager;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.google.android.gms.ads.AdListener;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.InterstitialAd;
+
 import roboguice.activity.RoboFragmentActivity;
 
 public class MainActivity extends RoboFragmentActivity {
+
+    private InterstitialAd interstitial;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        // Create the interstitial.
+        interstitial = new InterstitialAd(this);
+        interstitial.setAdUnitId("ca-app-pub-3671756782926123/2632835897");
+
+        // Create ad request.
+        AdRequest adRequest = new AdRequest.Builder().build();
+
+        // Begin loading your interstitial.
+        interstitial.loadAd(adRequest);
+
+        interstitial.setAdListener(new AdListener(){
+            public void onAdLoaded(){
+                displayInterstitial();
+            }
+        });
 
         if (findViewById(R.id.main_container) != null) {
             if (savedInstanceState != null) {
@@ -26,6 +48,13 @@ public class MainActivity extends RoboFragmentActivity {
                     .beginTransaction()
                     .add(R.id.main_container, fragment)
                     .commit();
+        }
+    }
+
+    // Invoke displayInterstitial() when you are ready to display an interstitial.
+    public void displayInterstitial() {
+        if (interstitial.isLoaded()) {
+            interstitial.show();
         }
     }
 

@@ -22,6 +22,7 @@ dependencies {
     compile 'com.android.support:appcompat-v7:19.1.0'
     compile 'com.android.support:gridlayout-v7:19.1.0'
     compile 'com.android.support:support-v4:19.1.0'
+    compile 'com.google.android.gms:play-services:5.+'
     compile fileTree(dir: 'libs', include: ['*.jar'])
     compile files('libs/guice-3.0-no_aop.jar')
     compile files('libs/javax.inject-1.jar')
