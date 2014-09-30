@@ -1,13 +1,10 @@
 package com.physicsformulae.app;
 
-import android.location.LocationManager;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.view.Menu;
 import android.view.MenuItem;
-
-import com.google.inject.Inject;
 
 import roboguice.activity.RoboFragmentActivity;
 
@@ -18,13 +15,19 @@ public class MainActivity extends RoboFragmentActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        FragmentManager fm = getSupportFragmentManager();
-        FragmentTransaction ft = fm.beginTransaction();
-        MainMenuFragment fragment = new MainMenuFragment();
-        ft.replace(R.id.main_container, fragment);
-        ft.commit();
-    }
+        if (findViewById(R.id.main_container) != null) {
+            if (savedInstanceState != null) {
+                return;
+            }
 
+            MainMenuFragment fragment = new MainMenuFragment();
+            fragment.setArguments(getIntent().getExtras());
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .add(R.id.main_container, fragment)
+                    .commit();
+        }
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -43,6 +46,7 @@ public class MainActivity extends RoboFragmentActivity {
                 }
                 return true;
             case R.id.action_settings:
+                startActivity(new Intent(MainActivity.this,SettingActivity.class));
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

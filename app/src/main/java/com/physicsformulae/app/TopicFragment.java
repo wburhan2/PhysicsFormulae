@@ -2,7 +2,6 @@ package com.physicsformulae.app;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,7 +19,7 @@ public class TopicFragment extends RoboFragment {
     public static String _title;
     public final String KINEMATICS = "Kinematics";
     public final String MOMENTUM = "Momentum";
-    public final String NEWTONS_LAW = "Newton's Law";
+    public final String NEWTONS_LAWS = "Newton's Laws";
     public final String VECTOR = "Vectors";
     public final String WORK_ENERGY = "Work and Energy";
     @InjectView(R.id.image_topic) TouchImageView imageView;
@@ -79,9 +78,9 @@ public class TopicFragment extends RoboFragment {
             int nh = (int) ( d.getHeight() * (512.0 / d.getWidth()) );
             Bitmap scaled = Bitmap.createScaledBitmap(d, 512, nh, true);
             imageView.setImageBitmap(scaled);
-        } else if (topic.equals(NEWTONS_LAW)) {
-            getActivity().setTitle(NEWTONS_LAW);
-            d = BitmapFactory.decodeResource(getResources(), R.drawable.newton_law);
+        } else if (topic.equals(NEWTONS_LAWS)) {
+            getActivity().setTitle(NEWTONS_LAWS);
+            d = BitmapFactory.decodeResource(getResources(), R.drawable.newton_laws);
             int nh = (int) ( d.getHeight() * (512.0 / d.getWidth()) );
             Bitmap scaled = Bitmap.createScaledBitmap(d, 512, nh, true);
             imageView.setImageBitmap(scaled);

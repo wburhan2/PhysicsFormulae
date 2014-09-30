@@ -20,7 +20,7 @@ public class MainMenuFragment extends RoboFragment {
 
     private final int KINEMATICS = 0;
     private final int MOMENTUM = 1;
-    private final int NEWTONS_LAW = 2;
+    private final int NEWTONS_LAWS = 2;
     private final int VECTORS = 3;
     private final int WORK_ENERGY = 4;
 
@@ -31,6 +31,7 @@ public class MainMenuFragment extends RoboFragment {
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
         outState.putInt("selected", mSelectedTopic);
     }
 
@@ -84,9 +85,9 @@ public class MainMenuFragment extends RoboFragment {
                     ft.commit();
                     break;
 
-                case NEWTONS_LAW:
-                    mSelectedTopic = NEWTONS_LAW;
-                    fragment = TopicFragment.newInstance(getResources().getString(R.string.newtons_law));
+                case NEWTONS_LAWS:
+                    mSelectedTopic = NEWTONS_LAWS;
+                    fragment = TopicFragment.newInstance(getResources().getString(R.string.newtons_laws));
                     ft.replace(R.id.main_container, fragment);
                     ft.addToBackStack(null);
                     ft.commit();

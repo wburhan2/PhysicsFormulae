@@ -1,17 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">PhysicsFormulae</string>
+    <string name="app_name">Physics Formulae</string>
     <string name="action_settings">Settings</string>
     <string name="vectors">Vectors</string>
     <string name="kinematics">Kinematics</string>
     <string name="momentum">Momentum</string>
-    <string name="newtons_law">Newton\'s Law</string>
+    <string name="newtons_laws">Newton\'s Laws</string>
     <string name="work_energy">Work and Energy</string>
+    <string name="about">About</string>
+    <string name="ok">OK</string>
+    <string name="about_info"> We are planning to release the formulae as students progress through their college physics series.
+                               We are starting with first quarter physics and plan to release more as time goes on.\n\nA project by:\n- Wilson Burhan (App Developer)\n- Jermaine Wegner (Physicist)\n\n\nPlease select the Feedback menu item if you have any comments for us. We strive to provide quality educational supplements to students and professionals alike.</string>
     <string-array name="topic_list">
         <item>Kinematics</item>
         <item>Momentum</item>
-        <item>Newton\'s Law</item>
+        <item>Newton\'s Laws</item>
         <item>Vectors</item>
         <item>Work and Energy</item>
     </string-array>
