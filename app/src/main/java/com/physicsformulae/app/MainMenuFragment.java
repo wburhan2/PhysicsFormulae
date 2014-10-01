@@ -21,8 +21,9 @@ public class MainMenuFragment extends RoboFragment {
     private final int KINEMATICS = 0;
     private final int MOMENTUM = 1;
     private final int NEWTONS_LAWS = 2;
-    private final int VECTORS = 3;
-    private final int WORK_ENERGY = 4;
+    private final int ROTATIONAL_KINEMATICS = 3;
+    private final int VECTORS = 4;
+    private final int WORK_ENERGY = 5;
 
     int mSelectedTopic = -1;
 
@@ -88,6 +89,14 @@ public class MainMenuFragment extends RoboFragment {
                 case NEWTONS_LAWS:
                     mSelectedTopic = NEWTONS_LAWS;
                     fragment = TopicFragment.newInstance(getResources().getString(R.string.newtons_laws));
+                    ft.replace(R.id.main_container, fragment);
+                    ft.addToBackStack(null);
+                    ft.commit();
+                    break;
+
+                case ROTATIONAL_KINEMATICS:
+                    mSelectedTopic = ROTATIONAL_KINEMATICS;
+                    fragment = TopicFragment.newInstance(getResources().getString(R.string.rotational_kinematics));
                     ft.replace(R.id.main_container, fragment);
                     ft.addToBackStack(null);
                     ft.commit();

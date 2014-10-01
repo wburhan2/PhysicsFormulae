@@ -21,26 +21,26 @@ public class MainActivity extends RoboFragmentActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // Create the interstitial.
-        interstitial = new InterstitialAd(this);
-        interstitial.setAdUnitId("ca-app-pub-3671756782926123/2632835897");
-
-        // Create ad request.
-        AdRequest adRequest = new AdRequest.Builder().build();
-
-        // Begin loading your interstitial.
-        interstitial.loadAd(adRequest);
-
-        interstitial.setAdListener(new AdListener(){
-            public void onAdLoaded(){
-                displayInterstitial();
-            }
-        });
-
         if (findViewById(R.id.main_container) != null) {
             if (savedInstanceState != null) {
                 return;
             }
+
+            // Create the interstitial.
+            interstitial = new InterstitialAd(this);
+            interstitial.setAdUnitId("ca-app-pub-3671756782926123/2632835897");
+
+            // Create ad request.
+            AdRequest adRequest = new AdRequest.Builder().build();
+
+            // Begin loading your interstitial.
+            interstitial.loadAd(adRequest);
+
+            interstitial.setAdListener(new AdListener(){
+                public void onAdLoaded(){
+                    displayInterstitial();
+                }
+            });
 
             MainMenuFragment fragment = new MainMenuFragment();
             fragment.setArguments(getIntent().getExtras());

@@ -8,6 +8,7 @@
     <string name="momentum">Momentum</string>
     <string name="newtons_laws">Newton\'s Laws</string>
     <string name="work_energy">Work and Energy</string>
+    <string name="rotational_kinematics">Rotational Kinematics</string>
     <string name="about">About</string>
     <string name="ok">OK</string>
     <string name="about_info"> We are planning to release the formulae as students progress through their college physics series.
@@ -16,6 +17,7 @@
         <item>Kinematics</item>
         <item>Momentum</item>
         <item>Newton\'s Laws</item>
+        <item>Rotational Kinematics</item>
         <item>Vectors</item>
         <item>Work and Energy</item>
     </string-array>
