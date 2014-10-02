@@ -6,15 +6,12 @@ import android.support.v4.app.FragmentManager;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import com.google.android.gms.ads.AdListener;
-import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.InterstitialAd;
+import com.ironsource.mobilcore.CallbackResponse;
+import com.ironsource.mobilcore.MobileCore;
 
 import roboguice.activity.RoboFragmentActivity;
 
 public class MainActivity extends RoboFragmentActivity {
-
-    private InterstitialAd interstitial;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,21 +23,8 @@ public class MainActivity extends RoboFragmentActivity {
                 return;
             }
 
-            // Create the interstitial.
-            interstitial = new InterstitialAd(this);
-            interstitial.setAdUnitId("ca-app-pub-3671756782926123/2632835897");
-
-            // Create ad request.
-            AdRequest adRequest = new AdRequest.Builder().build();
-
-            // Begin loading your interstitial.
-            interstitial.loadAd(adRequest);
-
-            interstitial.setAdListener(new AdListener(){
-                public void onAdLoaded(){
-                    displayInterstitial();
-                }
-            });
+            MobileCore.init(this,"2K3GZ5GPPKNGFNRAI4FA39AOKQSMU", MobileCore.LOG_TYPE.DEBUG, MobileCore.AD_UNITS.OFFERWALL );
+            //MobileCore.showOfferWall(this, null);
 
             MainMenuFragment fragment = new MainMenuFragment();
             fragment.setArguments(getIntent().getExtras());
@@ -48,13 +32,6 @@ public class MainActivity extends RoboFragmentActivity {
                     .beginTransaction()
                     .add(R.id.main_container, fragment)
                     .commit();
-        }
-    }
-
-    // Invoke displayInterstitial() when you are ready to display an interstitial.
-    public void displayInterstitial() {
-        if (interstitial.isLoaded()) {
-            interstitial.show();
         }
     }
 
@@ -79,6 +56,21 @@ public class MainActivity extends RoboFragmentActivity {
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
+        }
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (getSupportFragmentManager().getBackStackEntryCount() == 0 && MobileCore.isOfferwallReady()) {
+            MobileCore.showOfferWall(this, new CallbackResponse() {
+                @Override
+                public void onConfirmation(TYPE type) {
+                    finish();
+                }
+            });
+        }
+        else {
+            super.onBackPressed();
         }
     }
 }
