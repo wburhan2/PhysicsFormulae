@@ -23,7 +23,7 @@ public class MainActivity extends RoboFragmentActivity {
                 return;
             }
 
-            MobileCore.init(this,"2K3GZ5GPPKNGFNRAI4FA39AOKQSMU", MobileCore.LOG_TYPE.DEBUG, MobileCore.AD_UNITS.OFFERWALL );
+            MobileCore.init(this,"2K3GZ5GPPKNGFNRAI4FA39AOKQSMU", MobileCore.LOG_TYPE.PRODUCTION, MobileCore.AD_UNITS.OFFERWALL );
             //MobileCore.showOfferWall(this, null);
 
             MainMenuFragment fragment = new MainMenuFragment();
