@@ -1,22 +1,19 @@
 package com.physicsformulae.app;
 
 import android.os.Bundle;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
+import android.support.annotation.*;
+import android.support.v4.app.*;
+import android.support.v7.app.*;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
-import roboguice.fragment.RoboFragment;
-import roboguice.inject.InjectResource;
-import roboguice.inject.InjectView;
-
 /**
  * Created by Wilson on 6/22/14.
  */
-public class MainMenuFragment extends RoboFragment {
+public class MainMenuFragment extends Fragment {
 
     private final int KINEMATICS = 0;
     private final int MOMENTUM = 1;
@@ -27,8 +24,8 @@ public class MainMenuFragment extends RoboFragment {
 
     int mSelectedTopic = -1;
 
-    @InjectView(R.id.main_list) ListView mListView;
-    @InjectResource(R.array.topic_list) String[] mListOfTopics;
+    ListView mListView;
+    String[] mListOfTopics;
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
@@ -44,11 +41,8 @@ public class MainMenuFragment extends RoboFragment {
             // Restore last state for checked position.
             mSelectedTopic = savedInstanceState.getInt("selected");
         }
-
-        getActivity().getActionBar().setDisplayHomeAsUpEnabled(false);
-        getActivity().getActionBar().setHomeButtonEnabled(false);
-        getActivity().setTitle(getResources().getString(R.string.app_name));
-
+        mListView = (ListView) view.findViewById(R.id.main_list);
+        mListOfTopics = getResources().getStringArray(R.array.topic_list);
         final MyAdapter adapter = new MyAdapter(mListOfTopics);
         mListView.setAdapter(adapter);
         MyClickListener myClickListener = new MyClickListener();
@@ -58,6 +52,14 @@ public class MainMenuFragment extends RoboFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         return inflater.inflate(R.layout.main_menu_fragment, container, false);
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        ((AppCompatActivity)getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+        ((AppCompatActivity)getActivity()).getSupportActionBar().setHomeButtonEnabled(false);
+        getActivity().setTitle(getResources().getString(R.string.app_name));
     }
 
     public class MyClickListener implements AdapterView.OnItemClickListener {

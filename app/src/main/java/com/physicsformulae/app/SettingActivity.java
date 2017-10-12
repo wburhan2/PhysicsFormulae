@@ -6,6 +6,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
+import android.support.v7.app.*;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,15 +16,13 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import org.apache.http.protocol.HTTP;
-
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by Wilson on 9/19/14.
  */
-public class SettingActivity extends FragmentActivity {
+public class SettingActivity extends AppCompatActivity {
 
     private final int ABOUT = 0;
     private final int FEEDBACK = 1;
@@ -48,7 +47,7 @@ public class SettingActivity extends FragmentActivity {
             switch (i){
                 case FEEDBACK:
                     Intent email = new Intent(Intent.ACTION_SENDTO);
-                    email.setType(HTTP.PLAIN_TEXT_TYPE);
+                    email.setType("plain/text");
                     email.setData(Uri.parse("mailto:wilson.burhan@gmail.com"));
                     email.putExtra(Intent.EXTRA_SUBJECT, "Physics Formulae Feedback");
                     try {

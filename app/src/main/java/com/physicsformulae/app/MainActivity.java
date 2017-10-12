@@ -3,15 +3,12 @@ package com.physicsformulae.app;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
+import android.support.v7.app.*;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import com.ironsource.mobilcore.CallbackResponse;
-import com.ironsource.mobilcore.MobileCore;
 
-import roboguice.activity.RoboFragmentActivity;
-
-public class MainActivity extends RoboFragmentActivity {
+public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,9 +19,6 @@ public class MainActivity extends RoboFragmentActivity {
             if (savedInstanceState != null) {
                 return;
             }
-
-            MobileCore.init(this,"2K3GZ5GPPKNGFNRAI4FA39AOKQSMU", MobileCore.LOG_TYPE.PRODUCTION, MobileCore.AD_UNITS.OFFERWALL );
-            //MobileCore.showOfferWall(this, null);
 
             MainMenuFragment fragment = new MainMenuFragment();
             fragment.setArguments(getIntent().getExtras());
@@ -56,21 +50,6 @@ public class MainActivity extends RoboFragmentActivity {
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
-        }
-    }
-
-    @Override
-    public void onBackPressed() {
-        if (getSupportFragmentManager().getBackStackEntryCount() == 0 && MobileCore.isOfferwallReady()) {
-            MobileCore.showOfferWall(this, new CallbackResponse() {
-                @Override
-                public void onConfirmation(TYPE type) {
-                    finish();
-                }
-            });
-        }
-        else {
-            super.onBackPressed();
         }
     }
 }

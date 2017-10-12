@@ -3,17 +3,17 @@ package com.physicsformulae.app;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.support.annotation.*;
+import android.support.v4.app.*;
+import android.support.v7.app.*;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import roboguice.fragment.RoboFragment;
-import roboguice.inject.InjectView;
-
 /**
  * Created by Wilson on 8/14/14.
  */
-public class TopicFragment extends RoboFragment {
+public class TopicFragment extends Fragment {
 
 
     public static String _title;
@@ -23,11 +23,13 @@ public class TopicFragment extends RoboFragment {
     public final String ROTATIONAL_KINEMATICS = "Rotational Kinematics";
     public final String VECTOR = "Vectors";
     public final String WORK_ENERGY = "Work and Energy";
-    @InjectView(R.id.image_topic) TouchImageView imageView;
+    TouchImageView imageView;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.topic_fragment, container, false);
+        View view = inflater.inflate(R.layout.topic_fragment, container, false);
+        imageView = (TouchImageView) view.findViewById(R.id.image_topic);
+        return view;
     }
 
     @Override
@@ -49,10 +51,6 @@ public class TopicFragment extends RoboFragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         String topic = getArguments().getString("chapter");
-
-        getActivity().getActionBar().setDisplayHomeAsUpEnabled(true);
-        getActivity().getActionBar().setHomeButtonEnabled(true);
-
         Bitmap d;
 
         if (topic.equals(VECTOR)) {
@@ -97,5 +95,13 @@ public class TopicFragment extends RoboFragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+
+        ((AppCompatActivity)getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        ((AppCompatActivity)getActivity()).getSupportActionBar().setHomeButtonEnabled(true);
     }
 }
